@@ -14,7 +14,7 @@
 <body>
 	<div class="container">
 		<h1 class="text-center">Teacher's form</h1>
-		<form method="POST" action="TeacherServlet">
+		<form method="POST" action="teacherServlet">
 			<fieldset>
 				<legend>Data section</legend>
 				<div class="mb-3">

@@ -2,7 +2,7 @@ package model;
 
 import java.util.Date;
 
-import utils.Gender;
+import util.enums.Gender;
 
 public class Teacher {
 	private String id;
@@ -21,8 +21,19 @@ public class Teacher {
 
 	public Teacher(String id, String firstName, String lastName, String email, int age, double money, String phone,
 			Gender gender, Date birthday) {
-		super();
 		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.age = age;
+		this.money = money;
+		this.phone = phone;
+		this.gender = gender;
+		this.birthday = birthday;
+	}
+
+	public Teacher(String firstName, String lastName, String email, int age, double money, String phone, Gender gender,
+			Date birthday) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;

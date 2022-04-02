@@ -1,4 +1,4 @@
-package utils;
+package util.enums;
 
 public enum Gender {
 	MALE,
