@@ -14,7 +14,7 @@
 <body>
 	<div class="container">
 		<h1 class="text-center">Teacher's form</h1>
-		<form method="POST" action="teacherServlet">
+		<form method="POST" action="teacher">
 			<fieldset>
 				<legend>Data section</legend>
 				<div class="mb-3">
@@ -60,7 +60,8 @@
 						type="date" class="form-control" id="birthday"
 						aria-describedby="birthday" name="birthday">
 				</div>
-				<button type="submit" class="btn btn-primary">Submit</button>
+				<button type="submit" class="btn btn-primary" name="action" value="INSERT">Register</button>
+				<button type="submit" class="btn btn-primary" name="action" value="UPDATE">Update</button>
 			</fieldset>
 		</form>
 	</div>

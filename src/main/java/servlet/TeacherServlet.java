@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.servlet.ServletConfig;
@@ -18,15 +19,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.TeacherDAO;
 import model.Teacher;
 import util.connections.MySQLConnection;
 import util.enums.Gender;
+import util.enums.RequestType;
 
 /**
  * Servlet implementation class TeacherServlet
  */
-@WebServlet(name = "teacherServlet", description = "teacherServlet", urlPatterns = {
-		"/teacherServlet" })
+@WebServlet(name = "teacher", description = "teacher", urlPatterns = { "/teacher" })
 public class TeacherServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -44,7 +46,7 @@ public class TeacherServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("Hello");
+		selectTeacher(request, response);
 	}
 
 	/**
@@ -53,44 +55,75 @@ public class TeacherServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println();
 		try {
-			Teacher teacher = new Teacher(
-					request.getParameter("firstName"),
-					request.getParameter("lastName"),
-					request.getParameter("email"),
-					Integer.parseInt(request.getParameter("age")),
-					Double.parseDouble(request.getParameter("money")),
-					request.getParameter("phone"),
-					Gender.valueOf(request.getParameter("gender")),
-					new SimpleDateFormat("dd-MM-yyyy").parse(request.getParameter("birthday"))
-					);
+			RequestType requestType = RequestType.valueOf(request.getParameter("action"));
+
+			switch (requestType) {
+			case INSERT: {
+				insertTeacher(request, response);
+				break;
+			}
+			case UPDATE: {
+				updateTeacher(request, response);
+				break;
+			}
+			case DELETE: {
+				deleteTeacher(request, response);
+				break;
+			}
+			case SELECT: {
+				selectTeacher(request, response);
+				break;
+			}
+			default:
+				throw new IllegalArgumentException("Unexpected value: " + requestType);
+			}
 		} catch (NumberFormatException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
-		try {
-			connection = new MySQLConnection().getConnection();
-			preparedStatement = connection.prepareStatement("SELECT * FROM tb_docente");
-			resultSet = preparedStatement.executeQuery();
-			
-			System.out.println(resultSet);
-		}catch (Exception e) {
-			System.out.println(e);
-		} finally {
-			try {
-				connection.close();
-			} catch (Exception e) {
-				System.out.println(e);
-			}
 		}
 	}
 
+	private void selectTeacher(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		TeacherDAO teacherDAO = new TeacherDAO();
+		List<Teacher> listTeachers = teacherDAO.getTeachers();
+		try {
+			request.setAttribute("teachersList", listTeachers);
+			request.getRequestDispatcher("listTeachers.jsp").forward(request, response);
+		} catch (ServletException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		};
+	}
+
+	private void deleteTeacher(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void updateTeacher(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void insertTeacher(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		try {
+			Teacher teacher = new Teacher(request.getParameter("firstName"), request.getParameter("lastName"),
+					request.getParameter("email"), Integer.parseInt(request.getParameter("age")),
+					Double.parseDouble(request.getParameter("money")), request.getParameter("phone"),
+					Gender.valueOf(request.getParameter("gender")),
+					new SimpleDateFormat("dd-MM-yyyy").parse(request.getParameter("birthday")));
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }
