@@ -33,10 +33,6 @@
 						aria-describedby="email" name="email">
 				</div>
 				<div class="mb-3">
-					<label for=age class="form-label">Age</label> <input type="number"
-						class="form-control" id="age" aria-describedby="age" name="age">
-				</div>
-				<div class="mb-3">
 					<label for=money class="form-label">Money</label> <input
 						type="number" class="form-control" id="money"
 						aria-describedby="money" name="money">

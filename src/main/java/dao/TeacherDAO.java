@@ -32,10 +32,10 @@ public class TeacherDAO implements TeacherInterface {
 			preparedStatement.setInt(5, teacher.getAge());
 			preparedStatement.setDouble(6, teacher.getMoney());
 			preparedStatement.setString(7, teacher.getPhone());
-			preparedStatement.setObject(8, teacher.getGender());
+			preparedStatement.setInt(8, teacher.getGender().name().equals("MALE") ? 1 : 0);
 			preparedStatement.setDate(9, new java.sql.Date(teacher.getBirthday().getTime()));
 			
-			result = 1;
+			result = preparedStatement.executeUpdate();
 		} catch (Exception e) {
 			System.out.println(e);
 		} finally {

@@ -28,7 +28,7 @@ import util.enums.RequestType;
 /**
  * Servlet implementation class TeacherServlet
  */
-@WebServlet(name = "teacher", description = "teacher", urlPatterns = { "/teacher" })
+@WebServlet(name = "teachers", description = "teachers", urlPatterns = { "/teachers" })
 public class TeacherServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -113,15 +113,24 @@ public class TeacherServlet extends HttpServlet {
 	private void insertTeacher(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
 		try {
-			Teacher teacher = new Teacher(request.getParameter("firstName"), request.getParameter("lastName"),
+			Teacher teacher = new Teacher(request.getParameter("id"), request.getParameter("firstName"), request.getParameter("lastName"),
 					request.getParameter("email"), Integer.parseInt(request.getParameter("age")),
 					Double.parseDouble(request.getParameter("money")), request.getParameter("phone"),
 					Gender.valueOf(request.getParameter("gender")),
 					new SimpleDateFormat("dd-MM-yyyy").parse(request.getParameter("birthday")));
+			TeacherDAO teacherDAO = new TeacherDAO();
+			teacherDAO.insertTeacher(teacher);
+			doGet(request, response);
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ServletException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
