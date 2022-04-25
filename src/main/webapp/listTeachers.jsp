@@ -2,7 +2,7 @@
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>Teacher's list</title>
@@ -11,124 +11,62 @@
 	rel="stylesheet"
 	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
 	crossorigin="anonymous">
+<link rel="stylesheet" href="resources/css/styles.css">
 </head>
 <body>
-	<div class="container">
-		<h1 class="text-center">Teacher's list</h1>
-		<!-- Button trigger modal -->
-		<button type="button" class="btn btn-primary" data-bs-toggle="modal"
-			data-bs-target="#exampleModal">Launch demo modal</button>
+	<div class="container py-4">
+		<div class="card">
+			<div class="card-header">
+				<h1 class="text-center">Teacher's list</h1>
+			</div>
+			<div class="card-body">
+				<a class="btn btn-primary" href="/teachers/new" role="button">Register
+					teacher</a>
 
-		<!-- Modal -->
-		<div class="modal fade" id="exampleModal" tabindex="-1"
-			aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Register
-							teacher</h5>
-						<button type="button" class="btn-close" data-bs-dismiss="modal"
-							aria-label="Close"></button>
-					</div>
-					<div class="modal-body">
-						<form method="POST" action="teachers">
-							<fieldset>
-								<legend>Data section</legend>
-								<div class="mb-3">
-									<label for="id" class="form-label">Id</label> <input
-										type="text" class="form-control" id="id"
-										aria-describedby="id" name="id">
-								</div>
-								<div class="mb-3">
-									<label for="firstName" class="form-label">Firstname</label> <input
-										type="text" class="form-control" id="firstName"
-										aria-describedby="firstName" name="firstName">
-								</div>
-								<div class="mb-3">
-									<label for="lastName" class="form-label">Lastname</label> <input
-										type="text" class="form-control" id="lastName"
-										aria-describedby="lastName" name="lastName">
-								</div>
-								<div class="mb-3">
-									<label for="email" class="form-label">Email</label> <input
-										type="email" class="form-control" id="email"
-										aria-describedby="email" name="email">
-								</div>
-								<div class="mb-3">
-									<label for=age class="form-label">Age</label> <input
-										type="number" class="form-control" id="age"
-										aria-describedby="age" name="age">
-								</div>
-								<div class="mb-3">
-									<label for=money class="form-label">Money</label> <input
-										type="number" class="form-control" id="money"
-										aria-describedby="money" name="money">
-								</div>
-								<div class="mb-3">
-									<label for="gender" class="form-label">Gender</label>
-									<div class="form-check">
-										<input type="radio" class="form-check-input" id="male"
-											aria-describedby="gender" value="MALE" name="gender">
-										<label for="male">Male</label>
-
-									</div>
-									<div class="form-check">
-										<input type="radio" class="form-check-input" id="female"
-											aria-describedby="gender" value="FEMALE" name="gender">
-										<label for="female">Female</label>
-									</div>
-								</div>
-								<div class="mb-3">
-									<label for="birthday" class="form-label">Birthday</label> <input
-										type="date" class="form-control" id="birthday"
-										aria-describedby="birthday" name="birthday">
-								</div>
-								<button type="submit" class="btn btn-primary" name="action"
-									value="INSERT">Register</button>
-							</fieldset>
-						</form>
-					</div>
-				</div>
+				<table class="teachers-table table my-4">
+					<thead class="teachers-table__head">
+						<tr>
+							<th>ID</th>
+							<th>firstName</th>
+							<th>lastName</th>
+							<th>email</th>
+							<th>age</th>
+							<th>money</th>
+							<th>phone</th>
+							<th>gender</th>
+							<th>birthday</th>
+							<th>operations</th>
+						</tr>
+					</thead>
+					<tbody class="teachers-table__body">
+						<c:forEach items="${teachersList}" var="row">
+							<tr class="teachers-table__info teacher-row">
+								<td class="teacher-row__id">${row.id}</td>
+								<td class="teacher-row__firstName">${row.firstName}</td>
+								<td class="teacher-row__lastName">${row.lastName}</td>
+								<td class="teacher-row__email">${row.email}</td>
+								<td class="teacher-row__age">${row.age}</td>
+								<td class="teacher-row__money">${row.money}</td>
+								<td class="teacher-row__phone">${row.phone}</td>
+								<td class="teacher-row__gender">${row.gender}</td>
+								<td class="teacher-row__birthday">${row.birthday}</td>
+								<td class="teacher-row__operations">
+									<a href="/teachers/edit?id=${row.id}" class="btn btn-primary" name="action"
+										value="UPDATE" id="update-teacher">Update</a>
+									<a href="/teachers/delete?id=${row.id}" class="btn btn-primary" name="action"
+										value="DELETE" id="delete-teacher">Delete</a>
+								</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
 			</div>
 		</div>
-		<table class="table">
-			<thead>
-				<tr>
-					<th scope="col">ID</th>
-					<th scope="col">firstName</th>
-					<th scope="col">lastName</th>
-					<th scope="col">email</th>
-					<th scope="col">age</th>
-					<th scope="col">money</th>
-					<th scope="col">phone</th>
-					<th scope="col">gender</th>
-					<th scope="col">birthday</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${teachersList}" var="row">
-					<tr>
-						<td>${row.id}</td>
-						<td>${row.firstName}</td>
-						<td>${row.lastName}</td>
-						<td>${row.email}</td>
-						<td>${row.age}</td>
-						<td>${row.money}</td>
-						<td>${row.phone}</td>
-						<td>${row.gender}</td>
-						<td>${row.birthday}</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
 	</div>
 	<script>
-		var myModal = document.getElementById('myModal')
-		var myInput = document.getElementById('myInput')
-
-		myModal.addEventListener('shown.bs.modal', function() {
-			myInput.focus()
-		})
+		if (window.history.replaceState) {
+			window.history.replaceState(null, null, window.location.href);
+		}
 	</script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"

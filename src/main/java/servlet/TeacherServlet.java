@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,114 +26,107 @@ import util.connections.MySQLConnection;
 import util.enums.Gender;
 import util.enums.RequestType;
 
-/**
- * Servlet implementation class TeacherServlet
- */
-@WebServlet(name = "teachers", description = "teachers", urlPatterns = { "/teachers" })
+@WebServlet(name = "teachers", description = "teachers", urlPatterns = { "/teachers", "/teachers/*" })
 public class TeacherServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	TeacherDAO teacherDAO;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
+	public void init() {
+		teacherDAO = new TeacherDAO();
+	}
+
 	public TeacherServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		selectTeacher(request, response);
-	}
+		String pathInfo = request.getPathInfo();
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
 		try {
-			RequestType requestType = RequestType.valueOf(request.getParameter("action"));
-
-			switch (requestType) {
-			case INSERT: {
+			switch (pathInfo) {
+			case "/insert":
 				insertTeacher(request, response);
 				break;
-			}
-			case UPDATE: {
+			case "/update":
 				updateTeacher(request, response);
 				break;
-			}
-			case DELETE: {
+			case "/delete":
 				deleteTeacher(request, response);
 				break;
-			}
-			case SELECT: {
-				selectTeacher(request, response);
+			case "/list":
+				listTeachers(request, response);
+				break;
+			case "/new":
+				showRegisterForm(request, response);
+				break;
+			case "/edit":
+				showEditForm(request, response);
+				break;
+			default:
+				listTeachers(request, response);
 				break;
 			}
-			default:
-				throw new IllegalArgumentException("Unexpected value: " + requestType);
-			}
-		} catch (NumberFormatException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
 	}
 
-	private void selectTeacher(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
-		TeacherDAO teacherDAO = new TeacherDAO();
+	private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String id = request.getParameter("id");
+		Teacher teacher = teacherDAO.getTeacher(id);
+		request.setAttribute("teacher", teacher);
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/editTeacher.jsp");
+		requestDispatcher.forward(request, response);
+	}
+
+	private void showRegisterForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/registerTeacher.jsp");
+		requestDispatcher.forward(request, response);
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doGet(request, response);
+	}
+
+	private void listTeachers(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		List<Teacher> listTeachers = teacherDAO.getTeachers();
-		try {
-			request.setAttribute("teachersList", listTeachers);
-			request.getRequestDispatcher("listTeachers.jsp").forward(request, response);
-		} catch (ServletException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		};
+
+		request.setAttribute("teachersList", listTeachers);
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/listTeachers.jsp");
+		requestDispatcher.forward(request, response);
 	}
 
-	private void deleteTeacher(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
-
+	private void deleteTeacher(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String id = request.getParameter("id");
+		
+		teacherDAO.deleteTeacher(id);
+		response.sendRedirect("/teachers/");
 	}
 
-	private void updateTeacher(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
-
+	private void updateTeacher(HttpServletRequest request, HttpServletResponse response)
+			throws NumberFormatException, ParseException, IOException {
+		Teacher teacher = new Teacher(request.getParameter("id"), request.getParameter("firstName"),
+				request.getParameter("lastName"), request.getParameter("email"),
+				Integer.parseInt(request.getParameter("age")), Double.parseDouble(request.getParameter("money")),
+				request.getParameter("phone"), Gender.valueOf(request.getParameter("gender")),
+				new SimpleDateFormat("dd-MM-yyyy").parse(request.getParameter("birthday")));
+		
+		teacherDAO.updateTeacher(teacher);
+		response.sendRedirect("/teachers/");
 	}
 
-	private void insertTeacher(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
-		try {
-			Teacher teacher = new Teacher(request.getParameter("id"), request.getParameter("firstName"), request.getParameter("lastName"),
-					request.getParameter("email"), Integer.parseInt(request.getParameter("age")),
-					Double.parseDouble(request.getParameter("money")), request.getParameter("phone"),
-					Gender.valueOf(request.getParameter("gender")),
-					new SimpleDateFormat("dd-MM-yyyy").parse(request.getParameter("birthday")));
-			TeacherDAO teacherDAO = new TeacherDAO();
-			teacherDAO.insertTeacher(teacher);
-			doGet(request, response);
-		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ServletException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	private void insertTeacher(HttpServletRequest request, HttpServletResponse response)
+			throws NumberFormatException, ParseException, IOException {
+		Teacher teacher = new Teacher(request.getParameter("id"), request.getParameter("firstName"),
+				request.getParameter("lastName"), request.getParameter("email"),
+				Integer.parseInt(request.getParameter("age")), Double.parseDouble(request.getParameter("money")),
+				request.getParameter("phone"), Gender.valueOf(request.getParameter("gender")),
+				new SimpleDateFormat("dd-MM-yyyy").parse(request.getParameter("birthday")));
+		
+		teacherDAO.insertTeacher(teacher);
+		response.sendRedirect("/teachers/");
 	}
 }
