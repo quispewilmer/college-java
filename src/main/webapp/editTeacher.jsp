@@ -1,5 +1,6 @@
 <%@ page session="false" language="java"
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +17,7 @@
 		<div class="card w-75">
 			<h1 class="text-center card-header">Edit teacher - ${teacher.id}</h1>
 			
-			<form method="POST" action="/teachers/insert" class="card-body">
+			<form method="POST" action="/teachers/update" class="card-body">
 				<fieldset>
 					<legend>Data section</legend>
 					<div class="mb-3">
@@ -51,13 +52,13 @@
 						<label for="gender" class="form-label">Gender</label>
 						<div class="form-check">
 							<input type="radio" class="form-check-input" id="male"
-								aria-describedby="gender" value="MALE" name="gender"> <label
+								aria-describedby="gender" value="MALE" name="gender" <c:out value="${teacher.gender.toString().equals('MALE') ? 'checked' : ''}" /> > <label
 								for="male">Male</label>
 
 						</div>
 						<div class="form-check">
 							<input type="radio" class="form-check-input" id="female"
-								aria-describedby="gender" value="FEMALE" name="gender">
+								aria-describedby="gender" value="FEMALE" name="gender" <c:out value="${teacher.gender.toString().equals('FEMALE') ? 'checked' : ''}" /> />
 							<label for="female">Female</label>
 						</div>
 					</div>
@@ -67,7 +68,7 @@
 							aria-describedby="birthday" name="birthday" value="${teacher.birthday}">
 					</div>
 					<button type="submit" class="btn btn-primary" name="action"
-						value="INSERT">Register</button>
+						value="UPDATE">Update</button>
 				</fieldset>
 			</form>
 		</div>

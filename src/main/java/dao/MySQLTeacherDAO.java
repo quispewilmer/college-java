@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +12,7 @@ import model.Teacher;
 import util.connections.MySQLConnection;
 import util.enums.Gender;
 
-public class TeacherDAO implements TeacherInterface {
+public class MySQLTeacherDAO implements TeacherInterface {
 
 	@Override
 	public int insertTeacher(Teacher teacher) {
@@ -60,7 +59,7 @@ public class TeacherDAO implements TeacherInterface {
 		try {
 			connection = new MySQLConnection().getConnection();
 			preparedStatement = connection.prepareStatement(
-					"UPDATE teacher(firstName, lastName, email, age, money, phone, gender, birthday) SET ?, ?, ?, ?, ?, ?, ?, ?");
+					"UPDATE teacher SET firstName = ?, lastName = ?, email = ?, age = ?, money = ?, phone = ?, gender = ?, birthday = ? WHERE id = ?");
 			preparedStatement.setString(1, teacher.getFirstName());
 			preparedStatement.setString(2, teacher.getLastName());
 			preparedStatement.setString(3, teacher.getEmail());
@@ -69,6 +68,7 @@ public class TeacherDAO implements TeacherInterface {
 			preparedStatement.setString(6, teacher.getPhone());
 			preparedStatement.setInt(7, teacher.getGender().name().equals("MALE") ? 1 : 0);
 			preparedStatement.setDate(8, new java.sql.Date(teacher.getBirthday().getTime()));
+			preparedStatement.setString(9, teacher.getId());
 
 			result = preparedStatement.executeUpdate();
 		} catch (Exception e) {
@@ -175,4 +175,5 @@ public class TeacherDAO implements TeacherInterface {
 
 		return teachers;
 	}
+
 }

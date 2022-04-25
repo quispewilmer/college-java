@@ -1,13 +1,14 @@
 package factory;
 
-import dao.TeacherDAO;
+import dao.MariaDBTeacherDAO;
+import interfaces.TeacherInterface;
 
 public class MariaDBDAOFactory extends DAOFactory {
 
 	@Override
-	public TeacherDAO getTeacherDAO() {
+	public TeacherInterface getTeacherDAO() {
 		// TODO Auto-generated method stub
-		return null;
+		return new MariaDBTeacherDAO();
 	}
 
 }

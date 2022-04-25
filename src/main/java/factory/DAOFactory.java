@@ -1,12 +1,12 @@
 package factory;
 
-import dao.TeacherDAO;
+import interfaces.TeacherInterface;
 import util.enums.DaoType;
 
 public abstract class DAOFactory {
-	public abstract TeacherDAO getTeacherDAO();
+	public abstract TeacherInterface getTeacherDAO();
 	
-	public static DAOFactory getDaoFactory(DaoType daoType) {
+	public static DAOFactory getDAOFactory(DaoType daoType) {
 		switch (daoType) {
 		case MYSQL:
 			return new MySQLDAOFactory();
@@ -18,8 +18,8 @@ public abstract class DAOFactory {
 			return new OracleDAOFactory();
 		case DB2:
 			return new DB2DAOFactory();
-			default:
-				return null;
+		default:
+			return null;
 		}
 	}
 }
