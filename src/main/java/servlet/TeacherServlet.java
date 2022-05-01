@@ -80,6 +80,8 @@ public class TeacherServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		if(request.getCharacterEncoding() == null)
+			request.setCharacterEncoding("UTF-8");
 		doGet(request, response);
 	}
 

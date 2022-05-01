@@ -13,11 +13,14 @@ public class MySQLConnection {
 
 	public Connection getConnection() {
 		try {
-			dotenv = Dotenv.load();
+			dotenv = Dotenv.configure()
+					.directory(System.getProperty("user.home"))
+					.filename(".env")
+					.load();
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			String url ="jdbc:mysql://localhost:3306/institution"; //dotenv.get("MYSQL_DB_URL");
-			String user ="root"; //dotenv.get("MYSQL_DB_USER");
-			String password ="2211mysqlM1122"; //dotenv.get("MYSQL_DB_PASSWORD");
+			String url = dotenv.get("MYSQL_DB_URL");
+			String user = dotenv.get("MYSQL_DB_USER");
+			String password = dotenv.get("MYSQL_DB_PASSWORD");
 			connection = DriverManager.getConnection(url, user, password);
 			logger.info("Successfully connected");
 		} catch (SQLException e) {
