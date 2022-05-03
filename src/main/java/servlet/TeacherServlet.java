@@ -16,7 +16,7 @@ import model.Teacher;
 import service.TeacherService;
 import util.enums.Gender;
 
-@WebServlet(name = "teachers", description = "teachers", urlPatterns = { "/teachers", "/teachers/*" })
+@WebServlet(name = "teacher", description = "teacher", urlPatterns = { "/teacher", "/teacher/*" })
 public class TeacherServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	TeacherService teacherService;
@@ -26,7 +26,7 @@ public class TeacherServlet extends HttpServlet {
 	}
 
 	public TeacherServlet() {
-		super();
+		
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)

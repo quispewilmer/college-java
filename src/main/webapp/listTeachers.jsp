@@ -20,7 +20,7 @@
 				<h1 class="text-center">Teacher's list</h1>
 			</div>
 			<div class="card-body">
-				<a class="btn btn-primary" href="/teachers/new" role="button">Register
+				<a class="btn btn-primary" href="/teacher/new" role="button">Register
 					teacher</a>
 
 				<table class="teachers-table table my-4">

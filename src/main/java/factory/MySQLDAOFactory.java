@@ -1,6 +1,8 @@
 package factory;
 
+import dao.MySQLCourseDAO;
 import dao.MySQLTeacherDAO;
+import interfaces.CourseInterface;
 import interfaces.TeacherInterface;
 
 public class MySQLDAOFactory extends DAOFactory {
@@ -11,4 +13,9 @@ public class MySQLDAOFactory extends DAOFactory {
 		return new MySQLTeacherDAO();
 	}
 
+	@Override
+	public CourseInterface getCourseDAO() {
+		// TODO Auto-generated method stub
+		return new MySQLCourseDAO();
+	}
 }

@@ -16,7 +16,7 @@
 		<div class="card w-75">
 			<h1 class="text-center card-header">Register teacher</h1>
 			
-			<form method="POST" action="/teachers/insert" class="card-body">
+			<form method="POST" action="/teacher/insert" class="card-body">
 				<fieldset>
 					<legend>Data section</legend>
 					<div class="mb-3">

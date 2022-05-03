@@ -126,9 +126,9 @@ public class MySQLTeacherDAO implements TeacherInterface {
 			teacher = new Teacher();
 
 			while (resultSet.next()) {
-				teacher = new Teacher(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3),
-						resultSet.getString(4), resultSet.getInt(5), resultSet.getDouble(6), resultSet.getString(7),
-						Gender.valueOf(resultSet.getInt(8) == 1 ? "MALE" : "FEMALE"), resultSet.getDate(9));
+				teacher = new Teacher(resultSet.getString(1), resultSet.getString(3), resultSet.getString(4),
+						resultSet.getString(5), resultSet.getInt(6), resultSet.getDouble(7), resultSet.getString(8),
+						Gender.valueOf(resultSet.getInt(9) == 1 ? "MALE" : "FEMALE"), resultSet.getDate(10));
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -158,9 +158,9 @@ public class MySQLTeacherDAO implements TeacherInterface {
 			teachers = new ArrayList<Teacher>();
 
 			while (resultSet.next()) {
-				teacher = new Teacher(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3),
-						resultSet.getString(4), resultSet.getInt(5), resultSet.getDouble(6), resultSet.getString(7),
-						Gender.valueOf(resultSet.getInt(8) == 1 ? "MALE" : "FEMALE"), resultSet.getDate(9));
+				teacher = new Teacher(resultSet.getString(1), resultSet.getString(3), resultSet.getString(4),
+						resultSet.getString(5), resultSet.getInt(6), resultSet.getDouble(7), resultSet.getString(8),
+						Gender.valueOf(resultSet.getInt(9) == 1 ? "MALE" : "FEMALE"), resultSet.getDate(10));
 				teachers.add(teacher);
 			}
 		} catch (Exception e) {

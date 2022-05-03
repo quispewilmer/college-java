@@ -1,10 +1,12 @@
 package factory;
 
+import interfaces.CourseInterface;
 import interfaces.TeacherInterface;
 import util.enums.DaoType;
 
 public abstract class DAOFactory {
 	public abstract TeacherInterface getTeacherDAO();
+	public abstract CourseInterface getCourseDAO();
 	
 	public static DAOFactory getDAOFactory(DaoType daoType) {
 		switch (daoType) {

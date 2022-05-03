@@ -17,7 +17,7 @@
 		<div class="card w-75">
 			<h1 class="text-center card-header">Edit teacher - ${teacher.id}</h1>
 			
-			<form method="POST" action="/teachers/update" class="card-body">
+			<form method="POST" action="/teacher/update" class="card-body">
 				<fieldset>
 					<legend>Data section</legend>
 					<div class="mb-3">
