@@ -6,6 +6,7 @@ import util.enums.Gender;
 
 public class Teacher {
 	private String id;
+	private String courseId;
 	private String firstName;
 	private String lastName;
 	private String email;
@@ -19,9 +20,10 @@ public class Teacher {
 		
 	}
 
-	public Teacher(String id, String firstName, String lastName, String email, int age, double money, String phone,
+	public Teacher(String id, String courseId, String firstName, String lastName, String email, int age, double money, String phone,
 			Gender gender, Date birthday) {
 		this.id = id;
+		this.courseId = courseId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
@@ -32,8 +34,9 @@ public class Teacher {
 		this.birthday = birthday;
 	}
 
-	public Teacher(String firstName, String lastName, String email, int age, double money, String phone, Gender gender,
+	public Teacher(String courseId, String firstName, String lastName, String email, int age, double money, String phone, Gender gender,
 			Date birthday) {
+		this.courseId = courseId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
@@ -50,6 +53,14 @@ public class Teacher {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+	
+	public String getCourseId() {
+		return courseId;
+	}
+
+	public void setCourseId(String courseId) {
+		this.courseId = courseId;
 	}
 
 	public String getFirstName() {

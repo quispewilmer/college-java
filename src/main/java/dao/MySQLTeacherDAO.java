@@ -23,17 +23,18 @@ public class MySQLTeacherDAO implements TeacherInterface {
 
 		try {
 			connection = new MySQLConnection().getConnection();
-			preparedStatement = connection.prepareStatement("INSERT INTO teacher VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+			preparedStatement = connection.prepareStatement("INSERT INTO teacher VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
 			preparedStatement.setString(1, teacher.getId());
-			preparedStatement.setString(2, teacher.getFirstName());
-			preparedStatement.setString(3, teacher.getLastName());
-			preparedStatement.setString(4, teacher.getEmail());
-			preparedStatement.setInt(5, teacher.getAge());
-			preparedStatement.setDouble(6, teacher.getMoney());
-			preparedStatement.setString(7, teacher.getPhone());
-			preparedStatement.setInt(8, teacher.getGender().name().equals("MALE") ? 1 : 0);
-			preparedStatement.setDate(9, new java.sql.Date(teacher.getBirthday().getTime()));
+			preparedStatement.setString(2, teacher.getCourseId());
+			preparedStatement.setString(3, teacher.getFirstName());
+			preparedStatement.setString(4, teacher.getLastName());
+			preparedStatement.setString(5, teacher.getEmail());
+			preparedStatement.setInt(6, teacher.getAge());
+			preparedStatement.setDouble(7, teacher.getMoney());
+			preparedStatement.setString(8, teacher.getPhone());
+			preparedStatement.setInt(9, teacher.getGender().name().equals("MALE") ? 1 : 0);
+			preparedStatement.setDate(10, new java.sql.Date(teacher.getBirthday().getTime()));
 
 			result = preparedStatement.executeUpdate();
 		} catch (Exception e) {
@@ -59,16 +60,17 @@ public class MySQLTeacherDAO implements TeacherInterface {
 		try {
 			connection = new MySQLConnection().getConnection();
 			preparedStatement = connection.prepareStatement(
-					"UPDATE teacher SET firstName = ?, lastName = ?, email = ?, age = ?, money = ?, phone = ?, gender = ?, birthday = ? WHERE id = ?");
-			preparedStatement.setString(1, teacher.getFirstName());
-			preparedStatement.setString(2, teacher.getLastName());
-			preparedStatement.setString(3, teacher.getEmail());
-			preparedStatement.setInt(4, teacher.getAge());
-			preparedStatement.setDouble(5, teacher.getMoney());
-			preparedStatement.setString(6, teacher.getPhone());
-			preparedStatement.setInt(7, teacher.getGender().name().equals("MALE") ? 1 : 0);
-			preparedStatement.setDate(8, new java.sql.Date(teacher.getBirthday().getTime()));
-			preparedStatement.setString(9, teacher.getId());
+					"UPDATE teacher SET courseId = ?, firstName = ?, lastName = ?, email = ?, age = ?, money = ?, phone = ?, gender = ?, birthday = ? WHERE id = ?");
+			preparedStatement.setString(1, teacher.getCourseId());
+			preparedStatement.setString(2, teacher.getFirstName());
+			preparedStatement.setString(3, teacher.getLastName());
+			preparedStatement.setString(4, teacher.getEmail());
+			preparedStatement.setInt(5, teacher.getAge());
+			preparedStatement.setDouble(6, teacher.getMoney());
+			preparedStatement.setString(7, teacher.getPhone());
+			preparedStatement.setInt(8, teacher.getGender().name().equals("MALE") ? 1 : 0);
+			preparedStatement.setDate(9, new java.sql.Date(teacher.getBirthday().getTime()));
+			preparedStatement.setString(10, teacher.getId());
 
 			result = preparedStatement.executeUpdate();
 		} catch (Exception e) {
@@ -126,7 +128,7 @@ public class MySQLTeacherDAO implements TeacherInterface {
 			teacher = new Teacher();
 
 			while (resultSet.next()) {
-				teacher = new Teacher(resultSet.getString(1), resultSet.getString(3), resultSet.getString(4),
+				teacher = new Teacher(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4),
 						resultSet.getString(5), resultSet.getInt(6), resultSet.getDouble(7), resultSet.getString(8),
 						Gender.valueOf(resultSet.getInt(9) == 1 ? "MALE" : "FEMALE"), resultSet.getDate(10));
 			}
@@ -158,7 +160,7 @@ public class MySQLTeacherDAO implements TeacherInterface {
 			teachers = new ArrayList<Teacher>();
 
 			while (resultSet.next()) {
-				teacher = new Teacher(resultSet.getString(1), resultSet.getString(3), resultSet.getString(4),
+				teacher = new Teacher(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4),
 						resultSet.getString(5), resultSet.getInt(6), resultSet.getDouble(7), resultSet.getString(8),
 						Gender.valueOf(resultSet.getInt(9) == 1 ? "MALE" : "FEMALE"), resultSet.getDate(10));
 				teachers.add(teacher);

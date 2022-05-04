@@ -10,12 +10,13 @@
 	rel="stylesheet"
 	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
 	crossorigin="anonymous">
+<script src="/resources/js/scripts.js" type="text/javascript"></script>
 </head>
 <body>
 	<div class="container py-4 d-flex justify-content-center">
 		<div class="card w-75">
 			<h1 class="text-center card-header">Register teacher</h1>
-			
+
 			<form method="POST" action="/teacher/insert" class="card-body">
 				<fieldset>
 					<legend>Data section</legend>
@@ -25,8 +26,8 @@
 					</div>
 					<div class="mb-3">
 						<label for="firstName" class="form-label">Firstname</label> <input
-							type="text" class="form-control" id="firstName"
-							aria-describedby="firstName" name="firstName">
+							type="text" class="form-control" id="firsresponse="
+							firstName" name="firstName">
 					</div>
 					<div class="mb-3">
 						<label for="lastName" class="form-label">Lastname</label> <input
@@ -65,6 +66,12 @@
 						<label for="birthday" class="form-label">Birthday</label> <input
 							type="date" class="form-control" id="birthday"
 							aria-describedby="birthday" name="birthday">
+					</div>
+					<div class="mb-3">
+						<label for="course" class="form-label">Course</label> <select
+							class="form-select" name="course" id="course" required>
+							<option disabled selected>Select a course</option>
+						</select>
 					</div>
 					<button type="submit" class="btn btn-primary" name="action"
 						value="INSERT">Register</button>

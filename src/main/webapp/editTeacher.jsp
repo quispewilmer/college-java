@@ -11,28 +11,32 @@
 	rel="stylesheet"
 	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
 	crossorigin="anonymous">
+<script src="/resources/js/scripts.js" type="text/javascript"></script>
 </head>
 <body>
 	<div class="container py-4 d-flex justify-content-center">
 		<div class="card w-75">
 			<h1 class="text-center card-header">Edit teacher - ${teacher.id}</h1>
-			
+
 			<form method="POST" action="/teacher/update" class="card-body">
 				<fieldset>
 					<legend>Data section</legend>
 					<div class="mb-3">
 						<label for="id" class="form-label">Id</label> <input type="text"
-							class="form-control" id="id" aria-describedby="id" name="id" value="${teacher.id}">
+							class="form-control" id="id" aria-describedby="id" name="id"
+							value="${teacher.id}" readonly>
 					</div>
 					<div class="mb-3">
 						<label for="firstName" class="form-label">Firstname</label> <input
 							type="text" class="form-control" id="firstName"
-							aria-describedby="firstName" name="firstName" value="${teacher.firstName}">
+							aria-describedby="firstName" name="firstName"
+							value="${teacher.firstName}">
 					</div>
 					<div class="mb-3">
 						<label for="lastName" class="form-label">Lastname</label> <input
 							type="text" class="form-control" id="lastName"
-							aria-describedby="lastName" name="lastName" value="${teacher.lastName}">
+							aria-describedby="lastName" name="lastName"
+							value="${teacher.lastName}">
 					</div>
 					<div class="mb-3">
 						<label for="email" class="form-label">Email</label> <input
@@ -41,7 +45,8 @@
 					</div>
 					<div class="mb-3">
 						<label for=age class="form-label">Age</label> <input type="number"
-							class="form-control" id="age" aria-describedby="age" name="age" value="${teacher.age}">
+							class="form-control" id="age" aria-describedby="age" name="age"
+							value="${teacher.age}">
 					</div>
 					<div class="mb-3">
 						<label for=money class="form-label">Money</label> <input
@@ -52,20 +57,29 @@
 						<label for="gender" class="form-label">Gender</label>
 						<div class="form-check">
 							<input type="radio" class="form-check-input" id="male"
-								aria-describedby="gender" value="MALE" name="gender" <c:out value="${teacher.gender.toString().equals('MALE') ? 'checked' : ''}" /> > <label
-								for="male">Male</label>
+								aria-describedby="gender" value="MALE" name="gender"
+								<c:out value="${teacher.gender.toString().equals('MALE') ? 'checked' : ''}" />>
+							<label for="male">Male</label>
 
 						</div>
 						<div class="form-check">
 							<input type="radio" class="form-check-input" id="female"
-								aria-describedby="gender" value="FEMALE" name="gender" <c:out value="${teacher.gender.toString().equals('FEMALE') ? 'checked' : ''}" /> />
+								aria-describedby="gender" value="FEMALE" name="gender"
+								<c:out value="${teacher.gender.toString().equals('FEMALE') ? 'checked' : ''}" /> />
 							<label for="female">Female</label>
 						</div>
 					</div>
 					<div class="mb-3">
 						<label for="birthday" class="form-label">Birthday</label> <input
 							type="date" class="form-control" id="birthday"
-							aria-describedby="birthday" name="birthday" value="${teacher.birthday}">
+							aria-describedby="birthday" name="birthday"
+							value="${teacher.birthday}">
+					</div>
+					<div class="mb-3">
+						<label for="course" class="form-label">Course</label> <select
+							class="form-select" name="course" id="course">
+							<option selected>Select a course</option>
+						</select>
 					</div>
 					<button type="submit" class="btn btn-primary" name="action"
 						value="UPDATE">Update</button>

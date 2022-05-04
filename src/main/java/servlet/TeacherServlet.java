@@ -98,30 +98,30 @@ public class TeacherServlet extends HttpServlet {
 		String id = request.getParameter("id");
 
 		teacherService.deleteTeacher(id);
-		response.sendRedirect("/teachers/");
+		response.sendRedirect("/teacher/");
 	}
 
 	private void updateTeacher(HttpServletRequest request, HttpServletResponse response)
 			throws NumberFormatException, ParseException, IOException {
-		Teacher teacher = new Teacher(request.getParameter("id"), request.getParameter("firstName"),
+		Teacher teacher = new Teacher(request.getParameter("id"), request.getParameter("courseId"), request.getParameter("firstName"),
 				request.getParameter("lastName"), request.getParameter("email"),
 				Integer.parseInt(request.getParameter("age")), Double.parseDouble(request.getParameter("money")),
 				request.getParameter("phone"), Gender.valueOf(request.getParameter("gender")),
 				new SimpleDateFormat("dd-MM-yyyy").parse(request.getParameter("birthday")));
 
 		teacherService.updateTeacher(teacher);
-		response.sendRedirect("/teachers/");
+		response.sendRedirect("/teacher/");
 	}
 
 	private void insertTeacher(HttpServletRequest request, HttpServletResponse response)
 			throws NumberFormatException, ParseException, IOException {
-		Teacher teacher = new Teacher(request.getParameter("id"), request.getParameter("firstName"),
+		Teacher teacher = new Teacher(request.getParameter("id"), request.getParameter("course"), request.getParameter("firstName"),
 				request.getParameter("lastName"), request.getParameter("email"),
 				Integer.parseInt(request.getParameter("age")), Double.parseDouble(request.getParameter("money")),
 				request.getParameter("phone"), Gender.valueOf(request.getParameter("gender")),
 				new SimpleDateFormat("dd-MM-yyyy").parse(request.getParameter("birthday")));
 
 		teacherService.insertTeacher(teacher);
-		response.sendRedirect("/teachers/");
+		response.sendRedirect("/teacher/");
 	}
 }

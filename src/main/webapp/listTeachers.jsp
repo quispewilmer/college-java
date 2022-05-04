@@ -11,7 +11,8 @@
 	rel="stylesheet"
 	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
 	crossorigin="anonymous">
-<link rel="stylesheet" href="resources/css/styles.css">
+<link rel="stylesheet" href="/resources/css/styles.css">
+<script src="/resources/js/scripts.js" type="text/javascript"></script>
 </head>
 <body>
 	<div class="container py-4">
@@ -50,12 +51,9 @@
 								<td class="teacher-row__phone">${row.phone}</td>
 								<td class="teacher-row__gender">${row.gender}</td>
 								<td class="teacher-row__birthday">${row.birthday}</td>
-								<td class="teacher-row__operations">
-									<a href="/teachers/edit?id=${row.id}" class="btn btn-primary" name="action"
-										value="UPDATE" id="update-teacher">Update</a>
-									<a href="/teachers/delete?id=${row.id}" class="btn btn-primary" name="action"
-										value="DELETE" id="delete-teacher">Delete</a>
-								</td>
+								<td class="teacher-row__operations"><a
+									href="/teacher/edit?id=${row.id}" class="btn btn-primary">Update</a>
+									<a href="/teacher/delete?id=${row.id}" class="btn btn-primary">Delete</a></td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -63,11 +61,6 @@
 			</div>
 		</div>
 	</div>
-	<script>
-		if (window.history.replaceState) {
-			window.history.replaceState(null, null, window.location.href);
-		}
-	</script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
